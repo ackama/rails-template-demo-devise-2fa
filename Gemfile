@@ -50,3 +50,5 @@ group :test do
 gem "lighthouse-matchers"
 gem "axe-matchers"
 end
+
+gem "devise", "~> 4.8"
