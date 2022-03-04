@@ -52,3 +52,7 @@ gem "axe-matchers"
 end
 
 gem "devise", "~> 4.8"
+
+gem "devise-two-factor", "~> 3.0"
+
+gem "rqrcode-rails3", "~> 0.1.7"

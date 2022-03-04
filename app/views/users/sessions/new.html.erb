@@ -18,6 +18,10 @@
     </div>
   <% end %>
 
+<div class="form__field">
+  <%= f.label :otp_attempt, "2FA (Two Factor Auth) code", class: "form__label" %><br />
+  <%= f.text_field :otp_attempt, class: "form__input" %>
+</div>
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
