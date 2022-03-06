@@ -8,6 +8,7 @@
 // <%= javascript_pack_tag "boot", "data-turbolinks-track": "reload" %>
 // to the views/layouts/application.html.erb file above the existing application pack tag.
 //
+import '@hotwired/turbo-rails';
 import * as Sentry from '@sentry/browser';
 import '../stylesheets/application.scss';
 /* eslint no-console:0 */

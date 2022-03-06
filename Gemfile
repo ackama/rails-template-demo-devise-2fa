@@ -55,3 +55,7 @@ gem "devise", "~> 4.8"
 
 gem "devise-two-factor", path: "../devise-two-factor"
 gem "rqrcode-rails3"
+gem "turbo-rails"
+
+# Use Redis for Action Cable
+gem "redis", "~> 4.0"
