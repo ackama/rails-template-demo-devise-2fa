@@ -53,6 +53,5 @@ end
 
 gem "devise", "~> 4.8"
 
-gem "devise-two-factor", "~> 3.0"
-
-gem "rqrcode-rails3", "~> 0.1.7"
+gem "devise-two-factor", path: "../devise-two-factor"
+gem "rqrcode-rails3"
