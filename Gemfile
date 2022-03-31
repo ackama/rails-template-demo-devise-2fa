@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version")
 
 gem "rails", "7.0.2.2"
-gem "puma", "~> 4.1"
+gem "puma", "~> 4.3"
 gem "pg", "~> 1.1"
 gem 'dotenv-rails', require: "dotenv/rails-now"
 gem "bootsnap", require: false

@@ -180,6 +180,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.3-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.3-x86_64-linux)
+      racc (~> 1.4)
     okcomputer (1.18.4)
     orm_adapter (0.5.0)
     overcommit (0.58.0)
@@ -199,7 +201,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (4.3.11)
+    puma (4.3.12)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -356,6 +358,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   axe-matchers
@@ -378,7 +381,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry-byebug
   pry-rails
-  puma (~> 4.1)
+  puma (~> 4.3)
   rack-canonical-host (~> 0.2.3)
   rails (= 7.0.2.2)
   rspec-rails
