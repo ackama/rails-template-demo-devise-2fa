@@ -253,7 +253,6 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.6.0)
     regexp_parser (2.2.1)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -347,9 +346,6 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     timeout (0.2.0)
-    turbo-rails (1.0.1)
-      actionpack (>= 6.0.0)
-      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -405,7 +401,6 @@ DEPENDENCIES
   puma (~> 4.1)
   rack-canonical-host (~> 0.2.3)
   rails (= 7.0.2.2)
-  redis (~> 4.0)
   rqrcode-rails3
   rspec-rails
   rubocop (>= 0.70.0)
@@ -417,7 +412,6 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   simplecov
-  turbo-rails
   webdrivers
   webpacker
 

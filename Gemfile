@@ -57,7 +57,3 @@ gem "devise", "~> 4.8"
 gem "devise-two-factor", github: "eoinkelly/devise-two-factor", branch: "rails-7-support"
 
 gem "rqrcode-rails3"
-gem "turbo-rails"
-
-# Use Redis for Action Cable
-gem "redis", "~> 4.0"

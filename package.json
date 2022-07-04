@@ -19,7 +19,6 @@
   ],
   "prettier": "prettier-config-ackama",
   "dependencies": {
-    "@hotwired/turbo-rails": "^7.1.1",
     "@rails/webpacker": "5.4.3",
     "@sentry/browser": "^6.18.1",
     "dotenv-webpack": "^6.0.4",
