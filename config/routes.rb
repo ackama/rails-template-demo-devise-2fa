@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
+  # TODO: I'm unsure where the cleanest place to mount this is? users seems sensbile but it kind of intrudes on the devise namespace?
+  namespace :users do
+    resource :mfa
+  end
   ##
   # Workaround a "bug" in lighthouse CLI
   #
