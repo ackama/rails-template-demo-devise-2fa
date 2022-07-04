@@ -29,7 +29,7 @@ group :development do
 
   # Required in Rails 5 by ActiveSupport::EventedFileUpdateChecker
   gem "listen"
-  gem "overcommit", ">= 0.37.0", require: false
+  # gem "overcommit", ">= 0.37.0", require: false # Disabling for demo
 end
 
 group :development, :test do
