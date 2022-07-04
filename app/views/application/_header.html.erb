@@ -5,9 +5,10 @@
     <li><%= link_to "Home", root_path %></li>
   </ul>
 <% if current_user %>
-  <p>You are <strong>Signed in</strong></p>
+  <p>You are <strong>Signed in as <%= current_user.email %></strong></p>
   <ul>
-    <li><%= link_to "Sign out", destroy_user_session_path %></li>
+    <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+    <li><%= link_to "Edit user:  #{current_user.email}", edit_user_registration_path %></li>
   </ul>
 <% else %>
   <p>You are <strong>Not signed in</strong></p>

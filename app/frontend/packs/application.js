@@ -8,6 +8,7 @@
 // <%= javascript_pack_tag "boot", "data-turbolinks-track": "reload" %>
 // to the views/layouts/application.html.erb file above the existing application pack tag.
 //
+import Rails from '@rails/ujs';
 import * as Sentry from '@sentry/browser';
 import '../stylesheets/application.scss';
 /* eslint no-console:0 */
@@ -25,6 +26,8 @@ import '../stylesheets/application.scss';
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+Rails.start();
 
 console.log('Hello World from Webpacker');
 

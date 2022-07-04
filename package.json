@@ -19,6 +19,7 @@
   ],
   "prettier": "prettier-config-ackama",
   "dependencies": {
+    "@rails/ujs": "^6.0.5",
     "@rails/webpacker": "5.4.3",
     "@sentry/browser": "^6.18.1",
     "dotenv-webpack": "^6.0.4",
