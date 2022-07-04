@@ -7,7 +7,7 @@
 <% if current_user %>
   <p>You are <strong>Signed in</strong></p>
   <ul>
-    <li><%= link_to "Sign out", destroy_user_session_path, "data-turbo-method": :delete %></li>
+    <li><%= link_to "Sign out", destroy_user_session_path %></li>
   </ul>
 <% else %>
   <p>You are <strong>Not signed in</strong></p>

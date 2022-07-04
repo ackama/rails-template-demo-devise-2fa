@@ -7,9 +7,9 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 10.times do |n|
-  user = User.find_or_create_by(email: "foo-#{n}@example.com") do |user|
+  User.find_or_create_by!(email: "foo-#{n}@example.com") do |user|
     puts "Creating User: #{user.email}"
-    user.password = "limericklimerick"
+    user.password = "verylongpassword"
     user.otp_secret = User.generate_otp_secret
     user.otp_required_for_login = true
   end
