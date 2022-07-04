@@ -1,10 +1,12 @@
-PATH
-  remote: ../devise-two-factor
+GIT
+  remote: https://github.com/eoinkelly/devise-two-factor.git
+  revision: c26ffee689f3d4d1f05d22422aa8bd55e3ff4a9f
+  branch: rails-7-support
   specs:
     devise-two-factor (5.0.0)
-      activesupport (< 7.1)
+      activesupport (< 8.0)
       devise (~> 4.0)
-      railties (< 7.1)
+      railties (< 8.0)
       rotp (~> 6.0)
 
 GEM

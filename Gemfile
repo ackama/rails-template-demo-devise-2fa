@@ -53,7 +53,9 @@ end
 
 gem "devise", "~> 4.8"
 
-gem "devise-two-factor", path: "../devise-two-factor"
+# Hopefully this will land in the offical gem soon ...
+gem "devise-two-factor", github: "eoinkelly/devise-two-factor", branch: "rails-7-support"
+
 gem "rqrcode-rails3"
 gem "turbo-rails"
 
