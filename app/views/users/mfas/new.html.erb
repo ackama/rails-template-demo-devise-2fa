@@ -1,1 +1,15 @@
-setup mfa
+<h1>Setup MFA</h1>
+
+<p>
+TOOD: show some explanatory text
+</p>
+
+<%=
+  render partial: "form",
+         locals: {
+           issuer: Users::MfasController::ISSUER,
+           user: current_user,
+           verify_otp_submit_url: users_mfa_path,
+           verify_otp_submit_method: :post
+         }
+%>

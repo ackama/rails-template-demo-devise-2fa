@@ -1,0 +1,38 @@
+
+<h1> Set up a new MFA (Multi-factor authentication) device</h1>
+
+<p>
+  First download a free TOTP application for your smartphone. We recommend
+  <%= link_to "Google Authenticator for Apple iOS", "https://itunes.apple.com/nz/app/google-authenticator/id388497605?mt=8", target: "_blank" %>
+  or
+  <%= link_to "Google Authenticator for Android", "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en", target: "_blank" %>
+  .
+</p>
+
+<p>
+  Then scan the QR code below with the TOTP app. This will allow the app to generate the code which you will need to login to this account from now on.
+</p>
+
+<div>
+  <%
+    url = current_user.otp_provisioning_uri(current_user.email, issuer: issuer)
+    qr = RQRCode::QRCode.new(url)
+  %>
+  <div>
+    <%= raw qr.as_svg(module_size: 5, shape_rendering: 'crispEdges', level: :h) %>
+  </div>
+
+  <div>
+    <pre><code><%= url %></code></pre>
+  </div>
+</div>
+
+<p>
+  Next enter the code the app shows on screen below. This will verify that the application has been configured correctly.
+</p>
+
+<%= form_tag(verify_otp_submit_url, method: verify_otp_submit_method) do %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= text_field_tag :otp, nil, size: 10, maxlength: 6, placeholder: "123456" %>
+  <%= button_tag "Verify code", class: "button" %>
+<% end %>
