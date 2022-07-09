@@ -45,6 +45,7 @@ This code installs and configures the [devise-two-factor](https://github.com/tin
         * the devise action which gets the username and pass would need to stash them somewhere waiting for the OTP code
           * put them in the session? and then ask for the 2fa? putting creds in session like that feels bad for security
       * i think this would be a pretty big change to how devise sign-in works, maybe more than we want?
+      * ?? maybe we could do it client side? but browser would need to get a signal about that user requiring MFA in a way that wouldn't allow an attacker to enumerate which users require MFA and which don't
   * The terminology around MFA is confusing and I don't think I'm currently doing a good job of explaining it in plain english in the UI copy. This is probably something we want designer input on.
   * I don't think I'm warning users properly that "Reset my MFA" destroys their existing OTP secret so they can't actually sign in if they don't complete the reset
 * After we agree that this branch is good:
