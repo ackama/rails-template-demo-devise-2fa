@@ -98,7 +98,7 @@ module Users
     private
 
     def otp_param
-      params.require(:otp).gsub(/\A[^\d+]\z/, "")
+      params.require(:otp_attempt).gsub(/\A[^\d+]\z/, "")
     end
   end
 end

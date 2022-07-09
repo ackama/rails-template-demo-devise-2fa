@@ -33,6 +33,6 @@
 
 <%= form_tag(verify_otp_submit_url, method: verify_otp_submit_method) do %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <%= text_field_tag :otp, nil, size: 10, maxlength: 6, placeholder: "123456" %>
+  <%= text_field_tag :otp_attempt, nil, size: 10, maxlength: 6, placeholder: "123456" %>
   <%= button_tag "Verify code", class: "button" %>
 <% end %>
