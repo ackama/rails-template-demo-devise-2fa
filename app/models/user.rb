@@ -1,7 +1,9 @@
 class User < ApplicationRecord
+  devise :two_factor_authenticatable
+  devise :two_factor_backupable #, otp_backup_code_length: 16, otp_number_of_backup_codes: 5
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :registerable,
          :recoverable, :rememberable, :validatable, :lockable
 
   ##
@@ -39,5 +41,33 @@ class User < ApplicationRecord
   #
   def authenticatable_salt
     "#{super}#{session_token}"
+  end
+
+  def enable_otp!
+    update!(otp_secret: User.generate_otp_secret)
+  end
+
+  # this resets the secret but deliberately does not touch the `otp_required_for_login` flag
+  def reset_otp_secret!
+    update!(otp_secret: User.generate_otp_secret)
+  end
+
+  def require_otp!
+    update!(otp_required_for_login: true)
+  end
+
+  def otp_enabled_and_required?
+    otp_secret.present? && otp_required_for_login
+  end
+
+  # We clear the flag which requires OTP at sign in. We also unset `otp_secret`
+  # and `otp_backup_codes` so that the user's existing TOTP codes (including
+  # backup codes) will no longer work.
+  def disable_otp!
+    update!(otp_secret: nil, otp_required_for_login: false, otp_backup_codes: nil)
+  end
+
+  def discard_otp_secret!
+    update!(otp_secret: nil, otp_backup_codes: nil)
   end
 end

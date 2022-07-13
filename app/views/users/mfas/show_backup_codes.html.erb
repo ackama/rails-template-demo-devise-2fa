@@ -1,0 +1,20 @@
+<h1>Download backup codes (these will not be available again!)</h1>
+
+<p>
+Save these codes securely. You can use them to sign in if you lose your TOTP device.
+</p>
+<p>
+If you reset your MFA setup, these codes below will no longer work.
+</p>
+<p>
+By viewing this page you have invalidated any previous codes.
+</p>
+<p>
+Each backup code can be used <strong>once only</strong>.
+</p>
+
+<pre><code>
+<%= @backup_codes.join("\n") %>
+</code></pre>
+
+<%= link_to "Back to my MFA setup", users_mfa_path %>
