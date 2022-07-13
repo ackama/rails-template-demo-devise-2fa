@@ -52,8 +52,5 @@ gem "axe-matchers"
 end
 
 gem "devise", "~> 4.8"
-
-# Hopefully this will land in the offical gem soon ...
-gem "devise-two-factor", github: "eoinkelly/devise-two-factor", branch: "rails-7-support"
-
+gem "devise-two-factor", "~> 5.0"
 gem "rqrcode-rails3"
