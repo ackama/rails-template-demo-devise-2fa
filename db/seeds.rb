@@ -8,7 +8,7 @@
 
 10.times do |n|
   User.find_or_create_by!(email: "foo-#{n}@example.com") do |user|
-    puts "Creating User: #{user.email}"
+    Rails.logger.debug { "Creating User: #{user.email}" }
     user.password = "verylongpassword"
     user.otp_secret = User.generate_otp_secret
     user.otp_required_for_login = true

@@ -14,10 +14,10 @@ module Users
     # you can more easily tell the 2FA codes for different environments
     # apart in your 2FA app
     ISSUER = if Rails.env.production?
-                "Demo".freeze
-              else
-                "Demo #{Rails.env}".freeze
-              end
+               "Demo".freeze
+             else
+               "Demo #{Rails.env}".freeze
+             end
     ##
     # #show is the entry point for a user managing their MFA. It displays a
     # summary of the current state of their MFA setup and buttons/links to take
@@ -31,7 +31,8 @@ module Users
     #
     def new
       if current_user.otp_enabled_and_required?
-        redirect_to users_mfa_path, notice: "You have already set up MFA. If you wish to change it you must delete it first"
+        redirect_to users_mfa_path,
+                    notice: "You have already set up MFA. If you wish to change it you must delete it first"
         return
       end
 
@@ -77,7 +78,7 @@ module Users
       if otp_param == current_user.current_otp
         current_user.require_otp!
         redirect_to users_mfa_path, notice: "Success! A TOTP code will be required for all future sign ins"
-        return
+        nil
       else
         flash.now[:alert] = "That was not a valid code. Please try again or contact support"
         render :edit
