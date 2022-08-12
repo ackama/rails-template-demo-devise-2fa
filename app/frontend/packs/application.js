@@ -10,6 +10,7 @@
 //
 import Rails from '@rails/ujs';
 import * as Sentry from '@sentry/browser';
+import '../js/bootstrap.js';
 import '../stylesheets/application.scss';
 /* eslint no-console:0 */
 // This file is automatically compiled by Webpack, along with any other files
