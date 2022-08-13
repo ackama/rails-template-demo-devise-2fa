@@ -39,8 +39,12 @@
     <%= render("application/header") %>
     <%= render("application/flash") %>
 
-    <div role="main">
-      <%= yield %>
+    <div role="main" class="container-lg">
+      <div class="row">
+        <div class="col">
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </body>
 </html>

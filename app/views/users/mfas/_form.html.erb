@@ -1,5 +1,5 @@
 
-<h1> Set up a new MFA (Multi-factor authentication) device</h1>
+<h2> Set up a new MFA Authenticator device</h2>
 
 <p>
   First download a free TOTP application for your smartphone. We recommend
@@ -10,21 +10,23 @@
 </p>
 
 <p>
-  Then scan the QR code below with the TOTP app. This will allow the app to generate the code which you will need to login to this account from now on.
+  Scan this QR code with your Authenticator app. This will allow the app to generate TOTP codes which you will need to login to this account from now on.
+</p>
+
+<%
+  url = current_user.otp_provisioning_uri(current_user.email, issuer: issuer)
+  qr = RQRCode::QRCode.new(url)
+%>
+<div class="my-3">
+  <%= raw qr.as_svg(module_size: 5, shape_rendering: 'crispEdges', level: :h) %>
+</div>
+
+<p>
+  If your Authenticator app does not support scanning a QR code, you can use this TOTP URL instead.
 </p>
 
 <div>
-  <%
-    url = current_user.otp_provisioning_uri(current_user.email, issuer: issuer)
-    qr = RQRCode::QRCode.new(url)
-  %>
-  <div>
-    <%= raw qr.as_svg(module_size: 5, shape_rendering: 'crispEdges', level: :h) %>
-  </div>
-
-  <div>
-    <pre><code><%= url %></code></pre>
-  </div>
+  <pre class="border bg-light p-3"><%= url %></pre>
 </div>
 
 <p>
@@ -33,6 +35,6 @@
 
 <%= form_tag(verify_otp_submit_url, method: verify_otp_submit_method) do %>
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <%= text_field_tag :otp_attempt, nil, size: 10, maxlength: 6, placeholder: "123456" %>
-  <%= button_tag "Verify code", class: "button" %>
+  <%= text_field_tag :otp_attempt, nil, size: 10, maxlength: 6, placeholder: "123456", class: "form-control" %>
+  <%= button_tag "Verify code", class: "btn btn-primary" %>
 <% end %>

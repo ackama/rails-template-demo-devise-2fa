@@ -49,14 +49,19 @@ module Users
         current_user.require_otp!
         redirect_to users_mfa_path, notice: "Success! A TOTP code will be required for all future sign ins"
       else
-        flash.now[:alert] = "That was not a valid code. Please try again or contact support"
+        flash.now[:alert] = "That was not a valid code. Please try again"
         render :new
       end
     end
 
-    def show_backup_codes
+    def reset_backup_codes
       @backup_codes = current_user.generate_otp_backup_codes!
       current_user.save!
+    end
+
+    def delete_backup_codes
+      current_user.update!(otp_backup_codes: nil)
+      redirect_to users_mfa_path, notice: "Backup codes successfully deleted"
     end
 
     ##
@@ -93,7 +98,7 @@ module Users
     #   users in your app.
     def destroy
       current_user.disable_otp!
-      redirect_to users_mfa_path, alert: "You have disabled MFA for your account"
+      redirect_to users_mfa_path, notice: "Successfully disabled MFA for your account"
     end
 
     private

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   namespace :users do
     resource :mfa do
       member do
-        get :show_backup_codes
+        post :reset_backup_codes
+        delete :delete_backup_codes
         # TODO: route names still WIP, not sure the rest metaphor works here
       end
     end

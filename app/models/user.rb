@@ -60,14 +60,13 @@ class User < ApplicationRecord
     otp_secret.present? && otp_required_for_login
   end
 
-  # We clear the flag which requires OTP at sign in. We also unset `otp_secret`
-  # and `otp_backup_codes` so that the user's existing TOTP codes (including
-  # backup codes) will no longer work.
   def disable_otp!
-    update!(otp_secret: nil, otp_required_for_login: false, otp_backup_codes: nil)
+    # TODO: Verify that I don't need to clear backup codes here too
+    update!(otp_secret: nil, otp_required_for_login: false)
   end
 
   def discard_otp_secret!
-    update!(otp_secret: nil, otp_backup_codes: nil)
+    # TODO: Verify that I don't need to clear backup codes here too
+    update!(otp_secret: nil)
   end
 end
