@@ -9,6 +9,11 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
+  # TODO: is there a better way to do this?
+  devise_scope :user do
+    post "/users/check_2fa_requirement", to: "users/sessions#check_2fa_requirement", as: :user_check_2fa_requirement
+  end
+
   # TODO: I'm unsure where the cleanest place to mount this is? users seems sensbile but it kind of intrudes on the devise namespace?
   namespace :users do
     resource :mfa do

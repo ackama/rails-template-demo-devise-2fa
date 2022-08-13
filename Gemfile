@@ -54,3 +54,7 @@ end
 gem "devise", "~> 4.8"
 gem "devise-two-factor", "~> 5.0"
 gem "rqrcode-rails3"
+
+gem "turbo-rails"
+
+gem "stimulus-rails", "~> 1.1"

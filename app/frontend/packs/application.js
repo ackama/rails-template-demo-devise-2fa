@@ -10,6 +10,8 @@
 //
 import Rails from '@rails/ujs';
 import * as Sentry from '@sentry/browser';
+import '@hotwired/turbo-rails';
+import '../controllers';
 import '../js/bootstrap.js';
 import '../stylesheets/application.scss';
 /* eslint no-console:0 */
