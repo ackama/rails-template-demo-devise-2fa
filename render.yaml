@@ -13,7 +13,7 @@ services:
     repo: https://github.com/ackama/rails-template-demo-devise-2fa.git # optional
     region: singapore # optional (defaults to oregon)
     plan: starter # optional (defaults to starter), starter = USD 7/mon
-    branch: setup-render # optional (defaults to master)
+    branch: main # optional (defaults to master)
     numInstances: 1 # optional (defaults to 1)
 
     healthCheckPath: /
