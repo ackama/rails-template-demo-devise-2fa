@@ -9,7 +9,7 @@ gem "pg", "~> 1.1"
 gem 'dotenv-rails', require: "dotenv/rails-now"
 gem "bootsnap", require: false
 gem "sassc-rails"
-gem "webpacker"
+gem "shakapacker"
 gem "lograge"
 gem "okcomputer"
 gem "sentry-ruby"

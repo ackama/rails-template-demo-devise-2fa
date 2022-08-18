@@ -1,4 +1,4 @@
-// The application.js pack is defered by default which means that nothing imported
+// The application.js pack is deferred by default which means that nothing imported
 // in this file will begin executing until after the page has loaded. This helps to
 // speed up page loading times, especially in apps that have large amounts of js.
 //
@@ -9,6 +9,7 @@
 // to the views/layouts/application.html.erb file above the existing application pack tag.
 //
 import * as Sentry from '@sentry/browser';
+import '../js/bootstrap.js';
 import '../stylesheets/application.scss';
 /* eslint no-console:0 */
 // This file is automatically compiled by Webpack, along with any other files
@@ -19,14 +20,13 @@ import '../stylesheets/application.scss';
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-// Uncomment to copy all static images under ../images to the output folder and reference
+// Uncomment to copy all static images under ./images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
 //
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
-
-console.log('Hello World from Webpacker');
+const images = require.context('../images', true);
+// eslint-disable-next-line no-unused-vars
+const imagePath = name => images(name, true);
 
 // Initialize Sentry Error Reporting
 //
