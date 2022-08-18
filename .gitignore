@@ -36,7 +36,6 @@ yarn-debug.log*
 /capybara-*.html
 
 # Never check passwords into source control!
-/config/database.yml
 /.envrc
 /config/master.key
 /.env

@@ -1,0 +1,44 @@
+databases:
+  # NOTE: cannot have '-' character in databaseName or user
+  - name: ackama_mfa_demo
+    databaseName: eoinapp_production
+    user: ackama_mfa_demo
+    region: singapore # optional (defaults to oregon)
+    plan: starter # optional (defaults to starter), starter = USD 7/mon
+
+services:
+  - type: web
+    name: ackama_mfa_demo
+
+    repo: https://github.com/ackama/rails-template-demo-devise-2fa.git # optional
+    region: singapore # optional (defaults to oregon)
+    plan: starter # optional (defaults to starter), starter = USD 7/mon
+    branch: setup-render # optional (defaults to master)
+    numInstances: 1 # optional (defaults to 1)
+
+    healthCheckPath: /
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ackama_mfa_demo
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_SECRET_KEY_BASE
+        sync: false
+      - key: SMTP_USERNAME
+        value: example
+      - key: SMTP_PASSWORD
+        value: example
+      - key: SMTP_HOSTNAME
+        value: example.internal
+      - key: MAIL_FROM
+        value: changeme@example.internal
+      - key: SENTRY_ENV
+        value: production
+      - key: SENTRY_CSP_HEADER_REPORT_ENDPOINT
+        value: https://SOMECODE.ingest.sentry.io/api/SOMENUMS/security/?sentry_key=SOMETHING
+
