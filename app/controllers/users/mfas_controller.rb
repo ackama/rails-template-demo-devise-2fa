@@ -32,7 +32,7 @@ module Users
     def new
       if current_user.otp_enabled_and_required?
         redirect_to users_mfa_path,
-                    notice: "You have already set up MFA. If you wish to change it you must delete it first"
+                    notice: "You have already set up two-factor authentication (2FA). If you wish to change it you must delete it first"
         return
       end
 
@@ -47,7 +47,7 @@ module Users
     def create
       if otp_param == current_user.current_otp
         current_user.require_otp!
-        redirect_to users_mfa_path, notice: "Success! A TOTP code will be required for all future sign ins"
+        redirect_to users_mfa_path, notice: "Success! A two-factor authentication code (TOTP code) will be required for all future sign ins"
       else
         flash.now[:alert] = "That was not a valid code. Please try again"
         render :new
@@ -57,6 +57,11 @@ module Users
     def reset_backup_codes
       @backup_codes = current_user.generate_otp_backup_codes!
       current_user.save!
+      # TODO:
+      # Turbo doesn't like that we render from a form submission
+      # if I redirect I need to pass the backup codes which will not be available again
+      # this seems bit pointless just to keep turbo happy
+      # can I get a more elegant solution here?
     end
 
     def delete_backup_codes
@@ -82,7 +87,7 @@ module Users
       # it is important that this action never disable MFA while it is changing the secret vaules
       if otp_param == current_user.current_otp
         current_user.require_otp!
-        redirect_to users_mfa_path, notice: "Success! A TOTP code will be required for all future sign ins"
+        redirect_to users_mfa_path, notice: "Success! A two-factor authentication code (TOTP code) will be required for all future sign ins"
         nil
       else
         flash.now[:alert] = "That was not a valid code. Please try again or contact support"
@@ -98,7 +103,7 @@ module Users
     #   users in your app.
     def destroy
       current_user.disable_otp!
-      redirect_to users_mfa_path, notice: "Successfully disabled MFA for your account"
+      redirect_to users_mfa_path, notice: "Successfully disabled two-factor authentication for your account"
     end
 
     private
