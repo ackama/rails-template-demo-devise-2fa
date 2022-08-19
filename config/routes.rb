@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # TODO: is there a better way to do this?
   devise_scope :user do
-    post "/users/check_2fa_requirement", to: "users/sessions#check_2fa_requirement", as: :user_check_2fa_requirement
+    post "/users/verify_first_factor_creds", to: "users/sessions#verify_first_factor_creds", as: :user_verify_first_factor_creds
   end
 
   # TODO: I'm unsure where the cleanest place to mount this is? users seems sensbile but it kind of intrudes on the devise namespace?

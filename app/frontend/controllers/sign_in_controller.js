@@ -4,6 +4,9 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   static targets = [
     'firstFactorForm',
+    'firstFactorFormEmail',
+    'firstFactorFormPassword',
+    'firstFactorFormRememberMe',
     'secondFactorForm',
     'secondFactorFormEmail',
     'secondFactorFormPassword',
@@ -35,14 +38,18 @@ export default class extends Controller {
 
     console.log(result);
 
-    if (result.credsOk) {
-      if (result.twoFactorRequired) {
-        console.log('showing 2fa form');
+    if (result.firstFactorCredsVerified) {
+      if (result.secondFactorRequired) {
         this._copyFieldsFromPreAuthFormToAuthForm();
+
+        console.log('showing 2fa form');
         this.firstFactorFormTarget.classList.add('d-none');
         this.secondFactorFormTarget.classList.remove('d-none');
       } else {
-        console.log('submitting form right away');
+        this._copyFieldsFromPreAuthFormToAuthForm();
+
+        console.log('submitting second form right away');
+        this.secondFactorFormTarget.submit();
       }
     } else {
       this.dispatch('showFlash', {
@@ -58,8 +65,9 @@ export default class extends Controller {
     const form1 = this.firstFactorFormTarget;
     const form2 = this.secondFactorFormTarget;
 
-    form2.user_email.value = form1.pre_auth_email.value;
-    form2.user_password.value = form1.pre_auth_password.value;
-    form2.user_remember_me.value = form1.pre_auth_remember_me.value;
+    // TODO: use targets here to decouple
+    form2.user_email.value = form1.user_first_factor_email.value;
+    form2.user_password.value = form1.user_first_factor_password.value;
+    form2.user_remember_me.value = form1.user_first_factor_remember_me.value;
   }
 }

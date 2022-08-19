@@ -28,41 +28,42 @@ module Users
     #   respond_with resource, location: after_sign_in_path_for(resource)
     # end
 
-    # possible renames
-    # first_factor_check
-    # pre_auth_creds_check
-    # preflight_creds_check
-    # initial_creds_check
-    def check_2fa_requirement
-      # validate the creds we got but don't sign in the user
-      # find out whether user requires 2fa sign-in or not and return it
-      # if the user doesn't authenticate then we don't continue - they should
-      # get the same error as before - can i redirect to the normal url and have
-      # the form submit there?
-      user = nil
-
-      catch(:warden) do
-        # TODO: the strategies enabled require 2fa to be set
-        # I need a strategy that doesn't use 2fa, can I explicilty ask for the ;database_authenticatable strategy?
-
-        # currently fails because strategy.valid? fails in def _run_strategies_for(scope, args)
-        # require 'pry'; binding.pry
-        user = warden.authenticate!(:database_authenticatable, auth_options )
-      end
-
+    ##
+    # Validate the username and password params but **do not sign in the user**.
+    #
+    def verify_first_factor_creds
+      user = find_user_matching_first_factor_creds
       output = if user
-        {
-          credsOk: true,
-          twoFactorRequired: user.otp_required_for_login
-        }
-      else
-        {
-          credsOk: false,
-          errorMsg: I18n.t("devise.failure.invalid", authentication_keys: "Email")
-        }
-      end
+                 {
+                   firstFactorCredsVerified: true,
+                   secondFactorRequired: user.otp_required_for_login
+                 }
+               else
+                 {
+                   firstFactorCredsVerified: false,
+                   errorMsg: I18n.t("devise.failure.invalid", authentication_keys: "Email")
+                 }
+               end
 
       render json: output
+    end
+
+    private
+
+    ##
+    # Find the user and validat the password.
+    #
+    def find_user_matching_first_factor_creds
+      user = User.find_for_authentication(email: email_param)
+      user&.valid_password?(password_param) ? user : nil
+    end
+
+    def email_param
+      params.require(:user).fetch(:first_factor_email)
+    end
+
+    def password_param
+      params.require(:user).fetch(:first_factor_password)
     end
   end
 end

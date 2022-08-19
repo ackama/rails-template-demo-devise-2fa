@@ -4,13 +4,10 @@
 
 import { application } from './application';
 import FlashController from './flash_controller';
-import TwoFactorAwareSignInController from './two_factor_aware_sign_in_controller';
+import SignInController from './sign_in_controller';
 
 // TODO: https://github.com/hotwired/stimulus-rails recommends this explicit
 // loading of controllers but it seems quite "anti-rails". Is there a better,
 // more naming convention based way to do this?
-application.register(
-  'two-factor-aware-sign-in',
-  TwoFactorAwareSignInController
-);
+application.register('sign-in', SignInController);
 application.register('flash', FlashController);
