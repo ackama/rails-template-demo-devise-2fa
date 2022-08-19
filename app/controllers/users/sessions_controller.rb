@@ -18,7 +18,6 @@ module Users
       super
     end
 
-
     # This is direclty from https://github.com/heartcombo/devise/blob/main/app/controllers/devise/sessions_controller.rb
     # POST /resource/sign_in
     # def create
@@ -37,21 +36,33 @@ module Users
     def check_2fa_requirement
       # validate the creds we got but don't sign in the user
       # find out whether user requires 2fa sign-in or not and return it
-      # if the user doesn't authenticate then we don't continue - they should get the same error as before - can i redirect to the normal url and have the form submit there?
-      # require 'pry'; binding.pry
-      # res = warden.authenticate!(auth_options) # this seems to redirect away to the error app
+      # if the user doesn't authenticate then we don't continue - they should
+      # get the same error as before - can i redirect to the normal url and have
+      # the form submit there?
+      user = nil
 
-      puts "X" * 80
-      p params
-      puts "X" * 80
-      # render json: {
-      #   credsOk: false,
-      #   errorMsg: "flash content goes here"
-      # }
-      render json: {
-        credsOk: true,
-        errorMsg: nil
-      }
+      catch(:warden) do
+        # TODO: the strategies enabled require 2fa to be set
+        # I need a strategy that doesn't use 2fa, can I explicilty ask for the ;database_authenticatable strategy?
+
+        # currently fails because strategy.valid? fails in def _run_strategies_for(scope, args)
+        # require 'pry'; binding.pry
+        user = warden.authenticate!(:database_authenticatable, auth_options )
+      end
+
+      output = if user
+        {
+          credsOk: true,
+          twoFactorRequired: user.otp_required_for_login
+        }
+      else
+        {
+          credsOk: false,
+          errorMsg: I18n.t("devise.failure.invalid", authentication_keys: "Email")
+        }
+      end
+
+      render json: output
     end
   end
 end

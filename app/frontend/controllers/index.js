@@ -3,9 +3,14 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from './application';
-import TwoFactorAwareSignInController from './two_factor_aware_sign_in';
+import FlashController from './flash_controller';
+import TwoFactorAwareSignInController from './two_factor_aware_sign_in_controller';
 
+// TODO: https://github.com/hotwired/stimulus-rails recommends this explicit
+// loading of controllers but it seems quite "anti-rails". Is there a better,
+// more naming convention based way to do this?
 application.register(
   'two-factor-aware-sign-in',
   TwoFactorAwareSignInController
 );
+application.register('flash', FlashController);

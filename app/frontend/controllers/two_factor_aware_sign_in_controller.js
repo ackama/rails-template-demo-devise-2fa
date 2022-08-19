@@ -36,17 +36,24 @@ export default class extends Controller {
     console.log(result);
 
     if (result.credsOk) {
-      this._copyFieldsFromPreAuthFormToAuthForm();
-      this.firstFactorFormTarget.classList.add('d-none');
-      this.secondFactorFormTarget.classList.remove('d-none');
+      if (result.twoFactorRequired) {
+        console.log('showing 2fa form');
+        this._copyFieldsFromPreAuthFormToAuthForm();
+        this.firstFactorFormTarget.classList.add('d-none');
+        this.secondFactorFormTarget.classList.remove('d-none');
+      } else {
+        console.log('submitting form right away');
+      }
     } else {
-      // TODO: update error on page
-      console.log("Sign-in failed, please try again");
+      this.dispatch('showFlash', {
+        prefix: null,
+        detail: { type: 'alert', message: result.errorMsg }
+      });
     }
   }
 
   _copyFieldsFromPreAuthFormToAuthForm() {
-    console.log("copying fields");
+    console.log('copying fields');
 
     const form1 = this.firstFactorFormTarget;
     const form2 = this.secondFactorFormTarget;
@@ -55,9 +62,4 @@ export default class extends Controller {
     form2.user_password.value = form1.pre_auth_password.value;
     form2.user_remember_me.value = form1.pre_auth_remember_me.value;
   }
-
 }
-
-/*
-Q: is it better to trigger my JS with a normal button or have a submit mbutton which I then hijack in JS?
-*/
