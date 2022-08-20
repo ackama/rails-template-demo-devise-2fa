@@ -9,21 +9,19 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
-  # TODO: is there a better way to do this?
-  devise_scope :user do
-    post "/users/verify_first_factor_creds", to: "users/sessions#verify_first_factor_creds", as: :user_verify_first_factor_creds
-  end
-
-  # TODO: I'm unsure where the cleanest place to mount this is? users seems sensbile but it kind of intrudes on the devise namespace?
   namespace :users do
-    resource :mfa do
+    devise_scope :user do
+      post :verify_first_factor_creds, to: "sessions#verify_first_factor_creds"
+    end
+
+    resource :two_factor_auth do
       member do
         post :reset_backup_codes
         delete :delete_backup_codes
-        # TODO: route names still WIP, not sure the rest metaphor works here
       end
     end
   end
+
   ##
   # Workaround a "bug" in lighthouse CLI
   #
@@ -43,7 +41,7 @@ Rails.application.routes.draw do
     manifest_path = Webpacker::Configuration
                     .new(root_path: Rails.root, config_path: Rails.root.join("config/webpacker.yml"), env: Rails.env)
                     .public_manifest_path
-                    .relative_path_from(Rails.root.join("public"))
+                    .relative_path_from(Rails.public_path)
                     .to_s
     get "/asset-manifest.json", to: redirect(manifest_path)
   end

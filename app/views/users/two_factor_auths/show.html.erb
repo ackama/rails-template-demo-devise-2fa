@@ -52,7 +52,7 @@
           <% end %>
         </div>
         <div class="card-body">
-          <%= button_to "Reset my MFA ", edit_users_mfa_path, class: "btn btn-danger", method: :get %>
+          <%= button_to "Reset my MFA ", edit_users_two_factor_auth_path, class: "btn btn-danger", method: :get %>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="card-body">
-          <%= button_to "Disable MFA", users_mfa_path, method: :delete, class: "btn btn-danger" %>
+          <%= button_to "Disable MFA", users_two_factor_auth_path, method: :delete, class: "btn btn-danger" %>
         </div>
       </div>
 
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div class="card-body">
-          <%= button_to "Enable MFA", new_users_mfa_path, method: :get, class: "btn btn-primary" %>
+          <%= button_to "Enable MFA", new_users_two_factor_auth_path, method: :get, class: "btn btn-primary" %>
         </div>
       </div>
 
@@ -110,7 +110,7 @@
           </div>
         </div>
         <div class="card-body">
-          <%= button_to "Reset backup codes", reset_backup_codes_users_mfa_path, class: "btn btn-danger", method: :get %>
+          <%= button_to "Reset backup codes", reset_backup_codes_users_two_factor_auth_path, class: "btn btn-danger", method: :get %>
         </div>
       </div>
 
@@ -124,7 +124,7 @@
           </div>
         </div>
         <div class="card-body">
-          <%= button_to "Delete my backup codes", delete_backup_codes_users_mfa_path, class: "btn btn-danger", method: :delete %>
+          <%= button_to "Delete my backup codes", delete_backup_codes_users_two_factor_auth_path, class: "btn btn-danger", method: :delete %>
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@
           </div>
         </div>
         <div class="card-body">
-          <%= button_to "Create backup codes", reset_backup_codes_users_mfa_path, class: "btn btn-primary", method: :post, data: { turbo: false } %>
+          <%= button_to "Create backup codes", reset_backup_codes_users_two_factor_auth_path, class: "btn btn-primary", method: :post, data: { turbo: false } %>
         </div>
       </div>
     </div>

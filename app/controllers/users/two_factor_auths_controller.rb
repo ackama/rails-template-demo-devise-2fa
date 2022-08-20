@@ -1,12 +1,9 @@
 ##
-# Conceptually each user has one mfa resource which they can manage because
-# devise-two-factor only supports one MFA code per user
-#
-# TODO: naming of this controller could be better
-# TODO: what language should we use in UI, MFA is very jargon but everything else is too?
+# Conceptually each user has one "two-factor auth" resource which they can
+# manage because devise-two-factor only supports one 2fa code per user
 #
 module Users
-  class MfasController < ApplicationController
+  class TwoFactorAuthsController < ApplicationController
     # TODO: authorization here needs to check that you are operating only on yourself.
     # TODO: Could be extended to you being an admin by the app?
 
@@ -31,8 +28,7 @@ module Users
     #
     def new
       if current_user.otp_enabled_and_required?
-        redirect_to users_mfa_path,
-                    notice: "You have already set up two-factor authentication (2FA). If you wish to change it you must delete it first"
+        redirect_to users_two_factor_auth_path, notice: I18n.t("two_factor_auth.already_setup")
         return
       end
 
@@ -47,10 +43,9 @@ module Users
     def create
       if otp_param == current_user.current_otp
         current_user.require_otp!
-        redirect_to users_mfa_path,
-                    notice: "Success! A two-factor authentication code (TOTP code) will be required for all future sign ins"
+        redirect_to users_two_factor_auth_path, notice: I18n.t("two_factor_auth.success_setup")
       else
-        flash.now[:alert] = "That was not a valid code. Please try again"
+        flash.now[:alert] = I18n.t("two_factor_auth.invalid_code")
         render :new
       end
     end
@@ -67,7 +62,7 @@ module Users
 
     def delete_backup_codes
       current_user.update!(otp_backup_codes: nil)
-      redirect_to users_mfa_path, notice: "Backup codes successfully deleted"
+      redirect_to users_two_factor_auth_path, notice: I18n.t("two_factor_auth.backup_codes_delete_success")
     end
 
     ##
@@ -84,15 +79,15 @@ module Users
     end
 
     # submitted to from #edit
+    # it is important that this action never disable MFA while it is changing the secret vaules
     def update
-      # it is important that this action never disable MFA while it is changing the secret vaules
       if otp_param == current_user.current_otp
         current_user.require_otp!
-        redirect_to users_mfa_path,
-                    notice: "Success! A two-factor authentication code (TOTP code) will be required for all future sign ins"
+        redirect_to users_two_factor_auth_path,
+                    notice: I18n.t("two_factor_auth.success_setup")
         nil
       else
-        flash.now[:alert] = "That was not a valid code. Please try again or contact support"
+        flash.now[:alert] = I18n.t("two_factor_auth.invalid_code")
         render :edit
       end
     end
@@ -100,12 +95,9 @@ module Users
     ##
     # Remove MFA as a login requirement for the current user
     #
-    # TEAM_DECISION_REQUIRED:
-    #   You may want to remove this entirely if MFA is a requirement for all
-    #   users in your app.
     def destroy
       current_user.disable_otp!
-      redirect_to users_mfa_path, notice: "Successfully disabled two-factor authentication for your account"
+      redirect_to users_two_factor_auth_path, notice: I18n.t("two_factor_auth.success_disable")
     end
 
     private
