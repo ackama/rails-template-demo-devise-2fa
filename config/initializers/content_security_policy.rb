@@ -25,7 +25,7 @@ Rails.application.config.content_security_policy do |policy|
   #   need to merge the example into your existing call to the appropriate
   #   `*_src` method.
   #
-  policy.style_src  :self, "'unsafe-inline'"
+  policy.style_src :self, "'unsafe-inline'"
 
   # Use a separate host for assets e.g. CDN
   # #######################################

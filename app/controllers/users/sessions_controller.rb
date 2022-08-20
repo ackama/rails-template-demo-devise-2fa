@@ -18,40 +18,26 @@ module Users
       super
     end
 
-    # This is direclty from https://github.com/heartcombo/devise/blob/main/app/controllers/devise/sessions_controller.rb
-    # POST /resource/sign_in
-    # def create
-    #   self.resource = warden.authenticate!(auth_options)
-    #   set_flash_message!(:notice, :signed_in)
-    #   sign_in(resource_name, resource)
-    #   yield resource if block_given?
-    #   respond_with resource, location: after_sign_in_path_for(resource)
-    # end
-
     ##
     # Validate the username and password params but **do not sign in the user**.
     #
     def verify_first_factor_creds
       user = find_user_matching_first_factor_creds
-      output = if user
-                 {
-                   firstFactorCredsVerified: true,
-                   secondFactorRequired: user.otp_required_for_login
-                 }
-               else
-                 {
-                   firstFactorCredsVerified: false,
-                   errorMsg: I18n.t("devise.failure.invalid", authentication_keys: "Email")
-                 }
-               end
+      response = if user
+                   { firstFactorCredsVerified: true,
+                     secondFactorRequired: user.otp_required_for_login }
+                 else
+                   { firstFactorCredsVerified: false,
+                     errorMsg: I18n.t("devise.failure.invalid", authentication_keys: "Email") }
+                 end
 
-      render json: output
+      render json: response
     end
 
     private
 
     ##
-    # Find the user and validat the password.
+    # Find the user and validate the password.
     #
     def find_user_matching_first_factor_creds
       user = User.find_for_authentication(email: email_param)

@@ -17,8 +17,6 @@ export default class extends Controller {
     const form = this.firstFactorFormTarget;
     const formData = new FormData(form);
 
-    console.log(form.method, form.action);
-
     const response = await fetch(form.action, {
       method: form.method,
       headers: {
@@ -33,41 +31,46 @@ export default class extends Controller {
     if (response.ok) {
       result = await response.json();
     } else {
-      log('Failed due to HTTP response error', response);
+      this._sendShowFlashEvent('Failed to contact server. Please try again');
     }
 
-    console.log(result);
+    if (!result.firstFactorCredsVerified) {
+      this._sendShowFlashEvent(result.errorMsg);
+      return;
+    }
 
-    if (result.firstFactorCredsVerified) {
-      if (result.secondFactorRequired) {
-        this._copyFieldsFromPreAuthFormToAuthForm();
+    this._copyFieldsFromPreAuthFormToAuthForm();
 
-        console.log('showing 2fa form');
-        this.firstFactorFormTarget.classList.add('d-none');
-        this.secondFactorFormTarget.classList.remove('d-none');
-      } else {
-        this._copyFieldsFromPreAuthFormToAuthForm();
-
-        console.log('submitting second form right away');
-        this.secondFactorFormTarget.submit();
-      }
+    if (result.secondFactorRequired) {
+      this._hideFirstFactorForm();
+      this._showSecondFactorForm();
     } else {
-      this.dispatch('showFlash', {
-        prefix: null,
-        detail: { type: 'alert', message: result.errorMsg }
-      });
+      this._submitSecondFactorForm();
     }
   }
 
+  _sendShowFlashEvent(msg) {
+    this.dispatch('showFlash', {
+      prefix: null,
+      detail: { type: 'alert', message: msg }
+    });
+  }
+
+  _hideFirstFactorForm() {
+    this.firstFactorFormTarget.classList.add('d-none');
+  }
+
+  _showSecondFactorForm() {
+    this.secondFactorFormTarget.classList.remove('d-none');
+  }
+
+  _submitSecondFactorForm() {
+    this.secondFactorFormTarget.submit();
+  }
+
   _copyFieldsFromPreAuthFormToAuthForm() {
-    console.log('copying fields');
-
-    const form1 = this.firstFactorFormTarget;
-    const form2 = this.secondFactorFormTarget;
-
-    // TODO: use targets here to decouple
-    form2.user_email.value = form1.user_first_factor_email.value;
-    form2.user_password.value = form1.user_first_factor_password.value;
-    form2.user_remember_me.value = form1.user_first_factor_remember_me.value;
+    this.secondFactorFormEmailTarget.value = this.firstFactorFormEmailTarget.value;
+    this.secondFactorFormPasswordTarget.value = this.firstFactorFormPasswordTarget.value;
+    this.secondFactorFormRememberMeTarget.value = this.firstFactorFormRememberMeTarget.value;
   }
 }
