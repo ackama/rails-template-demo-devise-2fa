@@ -7,7 +7,7 @@ module Users
     # TODO: authorization here needs to check that you are operating only on yourself.
     # TODO: Could be extended to you being an admin by the app?
 
-    # Add the environment name to the 2FA (Two Factor Auth) string so that
+    # Add the environment name to the two-factor authentication (2FA) string so that
     # you can more easily tell the 2FA codes for different environments
     # apart in your 2FA app
     ISSUER = if Rails.env.production?
@@ -16,15 +16,15 @@ module Users
                "Demo #{Rails.env}".freeze
              end
     ##
-    # #show is the entry point for a user managing their MFA. It displays a
-    # summary of the current state of their MFA setup and buttons/links to take
+    # #show is the entry point for a user managing their two-factor authentication (2FA). It displays a
+    # summary of the current state of their two-factor authentication (2FA) setup and buttons/links to take
     # actions on it.
     #
     def show
     end
 
     ##
-    # #new starts the process of setting up MFA for the user
+    # #new starts the process of setting up two-factor authentication (2FA) for the user
     #
     def new
       if current_user.otp_enabled_and_required?
@@ -66,9 +66,9 @@ module Users
     end
 
     ##
-    # We want to support apps **requring** MFA. So we need to support users
-    # changing their MFA device without disabling MFA on their account. If MFA
-    # were optional, it would be enough for the user to first delete their MFA
+    # We want to support apps **requring** two-factor authentication (2FA). So we need to support users
+    # changing their two-factor authentication (2FA) device without disabling two-factor authentication (2FA) on their account. If two-factor authentication (2FA)
+    # were optional, it would be enough for the user to first delete their two-factor authentication (2FA)
     # and then create a new one.
     #
     def edit
@@ -79,7 +79,7 @@ module Users
     end
 
     # submitted to from #edit
-    # it is important that this action never disable MFA while it is changing the secret vaules
+    # it is important that this action never disable two-factor authentication (2FA) while it is changing the secret vaules
     def update
       if otp_param == current_user.current_otp
         current_user.require_otp!
@@ -93,7 +93,7 @@ module Users
     end
 
     ##
-    # Remove MFA as a login requirement for the current user
+    # Remove two-factor authentication (2FA) as a login requirement for the current user
     #
     def destroy
       current_user.disable_otp!
