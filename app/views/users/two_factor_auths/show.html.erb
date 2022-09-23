@@ -110,7 +110,7 @@
           </div>
         </div>
         <div class="card-body">
-          <%= button_to "Reset backup codes", reset_backup_codes_users_two_factor_auth_path, class: "btn btn-danger", method: :post %>
+          <%= button_to "Reset backup codes", reset_backup_codes_users_two_factor_auth_path, class: "btn btn-danger", method: :post, data: { turbo: false } %>
         </div>
       </div>
 
