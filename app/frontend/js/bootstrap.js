@@ -1,5 +1,6 @@
 /* eslint-disable no-new */
 // import Carousel from 'bootstrap/js/dist/carousel';
+import _Collapse from 'bootstrap/js/dist/collapse';
 import Dropdown from 'bootstrap/js/dist/dropdown';
 // import Tab from 'bootstrap/js/dist/tab';
 // import Tooltip from 'bootstrap/js/dist/tooltip';

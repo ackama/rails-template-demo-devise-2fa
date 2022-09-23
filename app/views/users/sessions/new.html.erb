@@ -42,6 +42,32 @@
       # long the backup codes are which helps in brute forcing
       %>
       <%= f.text_field :otp_attempt, class: "form-control" %>
+
+      <div class="my-3">
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                What is two-factor authentication?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <p>
+                  Two-factor authentication (2FA) is a way of adding security to your account, and preventing people from accessing your account - even if they have access to your email and password.
+                </p>
+                <p>
+                  You'll need an app on your phone or a similar device that can generate a 6-digit "One Time Password" for you each time you sign in. We also recommend generating backup codes, which can each be used once to access your account if you aren't able to use an authenticator app.
+                </p>
+                <p>
+                  If you do think someone has access to your email and password, please <a href="mailto:TODO">contact us</a> immediately.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <%= f.submit "Log in", class: "btn btn-primary", data: { turbo: false } %>
