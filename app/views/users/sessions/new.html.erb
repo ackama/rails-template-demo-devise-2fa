@@ -46,6 +46,8 @@
 
     <%= f.submit "Log in", class: "btn btn-primary", data: { turbo: false } %>
   <% end %>
-</div>
 
-<%= render "users/shared/links" %>
+  <div class="footer-links" data-sign-in-target="footerLinks">
+    <%= render "users/shared/links" %>
+  </div>
+</div>

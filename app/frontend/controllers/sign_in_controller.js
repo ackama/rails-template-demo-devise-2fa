@@ -10,7 +10,8 @@ export default class extends Controller {
     'secondFactorForm',
     'secondFactorFormEmail',
     'secondFactorFormPassword',
-    'secondFactorFormRememberMe'
+    'secondFactorFormRememberMe',
+    'footerLinks'
   ];
 
   async submitFirstFactor() {
@@ -43,6 +44,7 @@ export default class extends Controller {
 
     if (result.secondFactorRequired) {
       this._hideFirstFactorForm();
+      this._hideFooterLinks();
       this._showSecondFactorForm();
     } else {
       this._submitSecondFactorForm();
@@ -58,6 +60,10 @@ export default class extends Controller {
 
   _hideFirstFactorForm() {
     this.firstFactorFormTarget.classList.add('d-none');
+  }
+
+  _hideFooterLinks() {
+    this.footerLinksTarget.classList.add('d-none');
   }
 
   _showSecondFactorForm() {

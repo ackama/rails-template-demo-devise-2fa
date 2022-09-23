@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :homes, only: [] do
+    get :public
+    get :signed_in_user
+  end
   ##
   # Workaround a "bug" in lighthouse CLI
   #
@@ -46,7 +50,7 @@ Rails.application.routes.draw do
     get "/asset-manifest.json", to: redirect(manifest_path)
   end
 
-  root "home#index"
+  root "homes#public"
   mount OkComputer::Engine, at: "/healthchecks"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
