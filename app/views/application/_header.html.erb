@@ -11,23 +11,18 @@
         <ul class="navbar-nav w-100 justify-content-evenly">
           <% if current_user %>
             <li class="nav-item">
-              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-link btn", data: { turbo: false } %>
+              <%= link_to "Your Dashboard", signed_in_user_homes_path, class: "nav-link " %>
             </li>
             <li class="nav-item">
               <%= link_to "Edit user", edit_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "nav-link btn", data: { turbo: false } %>
             </li>
           <% else %>
             <li class="nav-item"><%= link_to "Sign in", new_user_session_path, class: "nav-link" %></li>
             <li class="nav-item"><%= link_to "Sign up", new_user_registration_path, class: "nav-link" %></li>
           <% end %>
-
-            <span class="navbar-text">
-              <% if current_user %>
-                Signed in as <strong><%= current_user.email %></strong>
-              <% else %>
-                <strong>Not signed in</strong>
-              <% end %>
-            </span>
         </ul>
       </div>
   </div>
