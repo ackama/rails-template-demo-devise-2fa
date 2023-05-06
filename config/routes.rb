@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     devise_scope :user do
-      post :verify_first_factor_creds, to: "sessions#verify_first_factor_creds"
+      post :validate_otp, to: "sessions#validate_otp"
     end
 
     resource :two_factor_auth do
@@ -20,11 +20,16 @@ Rails.application.routes.draw do
         delete :delete_backup_codes
       end
     end
+
+    resource :multi_factor_authentication, only: %i[new show create] do
+      post :backup_codes, action: :create_backup_codes
+      delete :backup_codes, action: :destroy_backup_codes
+    end
   end
 
-  resource :homes, only: [] do
-    get :public
-    get :signed_in_user
+  resource :dashboards, only: [:show]
+  resource :publics, only: [] do
+    get :home
   end
   ##
   # Workaround a "bug" in lighthouse CLI
@@ -50,7 +55,7 @@ Rails.application.routes.draw do
     get "/asset-manifest.json", to: redirect(manifest_path)
   end
 
-  root "homes#public"
+  root "publics#home"
   mount OkComputer::Engine, at: "/healthchecks"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

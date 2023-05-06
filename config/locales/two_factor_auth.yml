@@ -6,3 +6,4 @@ en:
     invalid_code: "That was not a valid code. Please try again"
     success_disable: "Successfully disabled two-factor authentication for your account"
     backup_codes_delete_success: "Backup codes successfully deleted"
+    must_setup_otp: "You must set up two-factor-auth before you can continue"

@@ -1,54 +1,29 @@
 <h2>Sign in</h2>
 
-<div data-controller="sign-in" >
-  <%= form_with(scope: resource_name, url: users_verify_first_factor_creds_path, data: { "sign-in-target": "firstFactorForm" }) do |f| %>
-    <div class="mb-3">
-      <%= f.label :first_factor_email, "Email", class: "form-label" %>
-      <%= f.email_field :first_factor_email, autofocus: true, autocomplete: "email", class: "form-control", data: { "sign-in-target": "firstFactorFormEmail" }  %>
-    </div>
+<%= form_with(scope: resource_name, url: session_path(resource_name)) do |f| %>
+  <legend class="fs-6 mb-4">Please enter your sign in details to continue</legend>
 
-    <div class="mb-3">
-      <%= f.label :first_factor_password, "Password", class: "form-label" %>
-      <%= f.password_field :first_factor_password, autocomplete: "current-password", class: "form-control", data: { "sign-in-target": "firstFactorFormPassword" } %>
-    </div>
-
-    <% if devise_mapping.rememberable? %>
-      <div class="mb-3 form-check">
-        <%= f.check_box :first_factor_remember_me, class: "form-check-input" %>
-        <%= f.label :first_factor_remember_me, "Remember me", class: "form-check-label", data: { "sign-in-target": "firstFactorFormRememberMe" }  %>
-      </div>
-    <% end %>
-
-    <%= f.button "Log in", type: "button", class: "btn btn-primary", data: { action: "click->sign-in#submitFirstFactor" } %>
-  <% end %>
-
-  <%=
-    form_for(resource,
-      as: resource_name,
-      url: session_path(resource_name),
-      html: { class: "d-none" },
-      data: { "sign-in-target": "secondFactorForm" }
-    ) do |f| %>
-      <%= f.hidden_field :email, data: { "sign-in-target": "secondFactorFormEmail" } %>
-      <%= f.hidden_field :password, data: { "sign-in-target": "secondFactorFormPassword" } %>
-      <%= f.hidden_field :remember_me, data: { "sign-in-target": "secondFactorFormRememberMe" } %>
-
-    <div class="mb-3">
-      <%= f.label :otp_attempt, "2FA (Two Factor Auth) code", class: "form-label" %>
-      <%
-      # Input must be wide enough to show a backup code as well as the usual 6 digit code.
-      # For security it shouldn't be exactly the same width as the backup code
-      # because attackers could use it as a (fairly weak) signal to determine how
-      # long the backup codes are which helps in brute forcing
-      %>
-      <%= f.text_field :otp_attempt, class: "form-control" %>
-      <%= render "application/what_is_2fa" %>
-    </div>
-
-    <%= f.submit "Log in", class: "btn btn-primary", data: { turbo: false } %>
-  <% end %>
-
-  <div class="footer-links" data-sign-in-target="footerLinks">
-    <%= render "users/shared/links" %>
+  <div class="mb-3">
+    <%= f.label :email, "Email", class: "form-label" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
   </div>
+
+  <div class="mb-3">
+    <%= f.label :password, "Password", class: "form-label" %>
+    <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="mb-3 form-check">
+      <%= f.check_box :remember_me, class: "form-check-input" %>
+      <%= f.label :remember_me, "Remember me", class: "form-check-label" %>
+    </div>
+  <% end %>
+
+  <%= f.submit "Log in", class: "btn btn-primary" %>
+<% end %>
+
+<div class="footer-links" data-sign-in-target="footerLinks">
+  <%= render "users/shared/links" %>
 </div>
+

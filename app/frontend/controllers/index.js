@@ -3,11 +3,10 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from './application';
-import FlashController from './flash_controller';
-import SignInController from './sign_in_controller';
+// import FlashController from './flash_controller';
+// import SignInController from './sign_in_controller';
 
 // TODO: https://github.com/hotwired/stimulus-rails recommends this explicit
 // loading of controllers but it seems quite "anti-rails". Is there a better,
 // more naming convention based way to do this?
-application.register('sign-in', SignInController);
-application.register('flash', FlashController);
+// application.register('example', ExampleController);

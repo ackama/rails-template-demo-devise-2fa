@@ -11,7 +11,7 @@
         <ul class="navbar-nav w-100 justify-content-evenly">
           <% if current_user %>
             <li class="nav-item">
-              <%= link_to "Your Dashboard", signed_in_user_homes_path, class: "nav-link " %>
+              <%= link_to "Your Dashboard", dashboards_path, class: "nav-link " %>
             </li>
             <li class="nav-item">
               <%= link_to "Edit user", edit_user_registration_path, class: "nav-link" %>
