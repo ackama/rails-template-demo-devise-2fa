@@ -36,12 +36,20 @@
   <%= f.submit "Update", class: "btn btn-primary" %>
 <% end %>
 
-<div class="mt-3">
-  <h3>Two-factor Authentication (2FA)</h3>
-  <div><%= button_to "Manage my Two-factor authentication (2FA) Old UI", users_two_factor_auth_path, method: :get, class: "btn btn-primary" %></div>
-  <br />
-  <div><%= button_to "Manage my Two-factor authentication (2FA) New UI", new_users_multi_factor_authentication_path, method: :get, class: "btn btn-primary" %></div>
+<hr class="border-secondary my-6" />
+
+<div class="mb-3 mt-3">
+  <h2 class="">Two-factor authentication</h2>
+  <p class="">Manage the device and codes you’ll use to sign in to this application.</p>
+
+  <%= link_to "Manage my two-factor authentication", users_multi_factor_authentication_path, class: "btn btn-primary px-6 my-6" %>
+
+  <div class="mb-3 mt-3">
+    <%= render "application/mfa_help" %>
+  </div>
 </div>
+
+<hr class="border-secondary my-6" />
 
 <div class="mt-3">
   <h3>Cancel my account</h3>

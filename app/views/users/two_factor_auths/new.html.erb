@@ -1,9 +1,0 @@
-<%=
-  render partial: "form",
-         locals: {
-           issuer: Users::TwoFactorAuthsController::ISSUER,
-           user: current_user,
-           verify_otp_submit_url: users_two_factor_auth_path,
-           verify_otp_submit_method: :post
-         }
-%>

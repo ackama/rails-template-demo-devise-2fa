@@ -14,13 +14,6 @@ Rails.application.routes.draw do
       post :validate_otp, to: "sessions#validate_otp"
     end
 
-    resource :two_factor_auth do
-      member do
-        post :reset_backup_codes
-        delete :delete_backup_codes
-      end
-    end
-
     resource :multi_factor_authentication, only: %i[new show create] do
       post :backup_codes, action: :create_backup_codes
       delete :backup_codes, action: :destroy_backup_codes

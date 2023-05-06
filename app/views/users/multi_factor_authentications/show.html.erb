@@ -4,9 +4,9 @@
   <div class="d-flex mb-6">
     <div class="flex-shrink-0">
       <% if current_user.otp_enabled_and_required? %>
-        OTP required
+        ✅
       <% else %>
-        OTP not required
+        🚫
       <% end %>
     </div>
     <div class="flex-grow-1 ms-3">
@@ -17,9 +17,9 @@
   <div class="d-flex">
     <div class="flex-shrink-0">
       <% if current_user.otp_backup_codes.present? %>
-        Backup codes present
+        ✅
       <% else %>
-        Backup codes note present
+        🚫
       <% end %>
     </div>
     <div class="flex-grow-1 ms-3">
