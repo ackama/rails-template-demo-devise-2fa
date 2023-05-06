@@ -11,10 +11,9 @@ Rails.application.config.content_security_policy do |policy|
   #
   policy.default_src :self
   policy.font_src    :self
-  policy.img_src     :self
+  policy.img_src     :data, :self
   policy.object_src  :none
   policy.script_src  :self
-  policy.style_src   :self
 
   # Allow inline-styles
   # ###################
@@ -26,7 +25,7 @@ Rails.application.config.content_security_policy do |policy|
   #   need to merge the example into your existing call to the appropriate
   #   `*_src` method.
   #
-  # policy.style_src  :self, "'unsafe-inline'"
+  policy.style_src :self, "'unsafe-inline'"
 
   # Use a separate host for assets e.g. CDN
   # #######################################
@@ -112,7 +111,7 @@ end
 # ###############
 
 # If you are using UJS then enable automatic nonce generation
-Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
+# Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
 
 # Set the nonce only to specific directives
 # Rails.application.config.content_security_policy_nonce_directives = %w(script-src)

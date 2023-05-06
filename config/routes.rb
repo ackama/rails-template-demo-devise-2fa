@@ -9,6 +9,21 @@ Rails.application.routes.draw do
     sessions: "users/sessions"
   }
 
+  namespace :users do
+    devise_scope :user do
+      post :validate_otp, to: "sessions#validate_otp"
+    end
+
+    resource :multi_factor_authentication, only: %i[new show create] do
+      post :backup_codes, action: :create_backup_codes
+      delete :backup_codes, action: :destroy_backup_codes
+    end
+  end
+
+  resource :dashboards, only: [:show]
+  resource :publics, only: [] do
+    get :home
+  end
   ##
   # Workaround a "bug" in lighthouse CLI
   #
@@ -28,12 +43,12 @@ Rails.application.routes.draw do
     manifest_path = Webpacker::Configuration
                     .new(root_path: Rails.root, config_path: Rails.root.join("config/webpacker.yml"), env: Rails.env)
                     .public_manifest_path
-                    .relative_path_from(Rails.root.join("public"))
+                    .relative_path_from(Rails.public_path)
                     .to_s
     get "/asset-manifest.json", to: redirect(manifest_path)
   end
 
-  root "home#index"
+  root "publics#home"
   mount OkComputer::Engine, at: "/healthchecks"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -81,7 +81,7 @@ Rails.application.configure do
   ##
   # `force_ssl` defaults to on. Turn off `force_ssl` if (and only if) RAILS_FORCE_SSL=false.
   #
-  config.force_ssl = ENV.fetch("RAILS_FORCE_SSL", "").downcase == "false"
+  config.force_ssl = ENV.fetch("RAILS_FORCE_SSL", "true").downcase != "false"
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).

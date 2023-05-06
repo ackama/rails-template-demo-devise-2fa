@@ -3,7 +3,7 @@
   <head>
     <title>
       <%= strip_tags(yield(:title)) + " – " if content_for?(:title) %>
-      Eoinapp
+      Two-factor authentication demo
     </title>
 
     <%= csrf_meta_tags %>
@@ -29,7 +29,7 @@
     <meta name="apple-mobile-web-app-title" content="Eoinapp">
   </head>
 
-  <body>
+  <body data-controller="flash" data-action="showFlash->flash#showFlash">
     <%
       # An example of how to load an image via Webpacker. This image is in
       # app/frontend/images/example.png
@@ -39,8 +39,12 @@
     <%= render("application/header") %>
     <%= render("application/flash") %>
 
-    <div role="main">
-      <%= yield %>
+    <div role="main" class="container-lg">
+      <div class="row">
+        <div class="col">
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </body>
 </html>

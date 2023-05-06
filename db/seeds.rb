@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+10.times do |n|
+  User.find_or_create_by!(email: "foo-#{n}@example.com") do |user|
+    Rails.logger.debug { "Creating User: #{user.email}" }
+    user.password = "verylongpassword"
+    user.otp_secret = User.generate_otp_secret
+    user.otp_required_for_login = true
+  end
+end

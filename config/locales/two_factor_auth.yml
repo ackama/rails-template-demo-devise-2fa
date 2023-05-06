@@ -1,0 +1,9 @@
+
+en:
+  two_factor_auth:
+    already_setup: "You have already set up two-factor authentication (2FA). If you wish to change it you must delete it first"
+    success_setup: "Success! A two-factor authentication code (TOTP code) will be required for all future sign ins"
+    invalid_code: "That was not a valid code. Please try again"
+    success_disable: "Successfully disabled two-factor authentication for your account"
+    backup_codes_delete_success: "Backup codes successfully deleted"
+    must_setup_otp: "You must set up two-factor-auth before you can continue"
